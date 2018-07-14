@@ -9,6 +9,5 @@ class Parent(models.Model):
     pass
 
 
-class Guardian(models.Model):
+class Teacher(models.Model):
     user = models.OneToOneField(User)
-    parent = models.ManyToManyField(Parent, related_name='guardian')
