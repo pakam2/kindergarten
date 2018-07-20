@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from main.views import LoginView
+from main.views import LoginView, SignUpView, MainView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^profile/', include('accounts.urls', namespace='profile')),
+    url(r'^signup/', SignUpView.as_view(), name='signup'),
+    url(r'^main/', MainView.as_view(), name='main'),
     url(r'^$', LoginView.as_view(), name='login-view'),
 
 ]

@@ -3,7 +3,7 @@ from django.db import models
 
 
 
-from groups.models import Child
+from groups.models import Child, Group
 from django.contrib.auth.models import User
 #User = settings.AUTH_USER_MODEL
 
