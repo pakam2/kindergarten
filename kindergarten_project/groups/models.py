@@ -10,7 +10,7 @@ GROUP = (
 
 class Child(models.Model):
     name = models.CharField(max_length=255)
-    picture = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True)
+    picture = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, null=True)
     # parent = models.ManyToMany(Parent, related_name='parent_of_child') // FK u parenta?
 
     def __str__(self):
