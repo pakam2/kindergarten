@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Parent, Guardian
+from accounts.models import Parent, Guardian
 
 
 admin.site.register(Parent)
