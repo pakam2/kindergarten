@@ -1,22 +1,29 @@
 from django.conf import settings
 from django.db import models
-
-
-
 from groups.models import Child, Group
 from django.contrib.auth.models import User
-#User = settings.AUTH_USER_MODEL
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
+
+
+#Extending User model with two fields
 
 class Parent(models.Model):
 
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     child = models.ManyToManyField(Child, related_name="childs_parent")
 
-    timestamp = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
-    # child = models.ForeignKey(Child)
+#Everytime a save event occurs a model is saved
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Parent.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.parent.save()
+
 
 
 
