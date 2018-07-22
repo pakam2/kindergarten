@@ -1,13 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Group, Child
 
 User = get_user_model()
 
 
-class ChildDetailView(DetailView):
+class ChildDetailView(LoginRequiredMixin, DetailView):
     template_name = 'accounts/child_detail_view.html'
     queryset = Child.objects.all()
 
@@ -18,7 +19,7 @@ class ChildDetailView(DetailView):
                     )
 
 
-class GroupDetailView(DetailView):
+class GroupDetailView(LoginRequiredMixin, DetailView):
     template_name = 'accounts/group_detail_view.html'
     queryset = Group.objects.all()
 
