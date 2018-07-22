@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail View</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
 
-<div>
-    Hello World! - {{ user.username }}
-</div>
+{% block body %}
+    <div>
+        siemaneczko! {{ user.username }} z tej strony!
+    {{ children }}
+    {% for child in children %}
 
-
-</body>
-</html>
+    {% endfor %}
+    </div>
+{% endblock %}
