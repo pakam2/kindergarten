@@ -18,9 +18,9 @@ class Parent(models.Model):
         return self.first_name
 
 
-class Teacher(models.Model):
+class Guardian(models.Model):
     user = models.OneToOneField(User)
-    parent = models.ManyToManyField(Parent, related_name='teacher') # czy potrzebne?
+    parent = models.ManyToManyField(Parent, related_name='guardian_parent') # czy potrzebne?
     group = models.ManyToManyField(Group, related_name='group')
 
     def __str__(self):

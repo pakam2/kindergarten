@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 
-from .models import Parent, Teacher
+from .models import Parent, Guardian
 
 User = get_user_model()
 

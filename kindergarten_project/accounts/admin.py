@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Parent, Teacher
+from .models import Parent, Guardian
 
 
 admin.site.register(Parent)
-admin.site.register(Teacher)
+admin.site.register(Guardian)
