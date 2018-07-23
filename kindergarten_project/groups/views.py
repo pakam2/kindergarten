@@ -33,8 +33,8 @@ class GroupDetailView(LoginRequiredMixin, DetailView):
 
 class ChildCreateView(LoginRequiredMixin, CreateView):
     form_class = ChildForm
-    template_name = 'form.html'
-    success_url = 'child-group:child-detail'
+    template_name = 'groups/child_form.html'
+    # success_url = 'child-group:child-detail'
 
     def form_valid(self, form):
         obj = form.save(commit=False)

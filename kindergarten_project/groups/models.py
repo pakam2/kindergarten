@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse_lazy
 
 GROUP = (('Y', 'Younger'),
          ('O','Older'))
@@ -23,3 +24,8 @@ class Child(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse_lazy("child-group:child-detail", kwargs={"pk": self.pk})
+
+

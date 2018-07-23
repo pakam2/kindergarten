@@ -3,9 +3,11 @@ from django.conf.urls import url
 from .views import (
     GroupDetailView,
     ChildDetailView,
+    ChildCreateView,
 )
 
 urlpatterns = [
-    url(r'^(?P<pk>(\d)+)/$', ChildDetailView.as_view(), name='child-detail'),
+    url(r'^detail/(?P<pk>(\d)+)/$', ChildDetailView.as_view(), name='child-detail'),
+    url(r'^create/$', ChildCreateView.as_view(), name='child-create'),
     url(r'^(?P<group_name>[\w.@+-]+)/$', GroupDetailView.as_view(), name='group-detail'),
 ]
