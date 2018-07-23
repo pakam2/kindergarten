@@ -45,13 +45,14 @@ class SignUpView(View):
             password2 = form.cleaned_data['password2']
             if password1 == password2:
                 #Create a new user
+                print(login_name)
                 user = User.objects.create_user(first_name = first_name, last_name=last_name, username=login_name, password=password1, email=email_field)
                 id_number = user.id
                 user.save()
                 #Relate the new user with the Parent model
                 print(id_number)
-                parent = Parent.objects.create(user_id=id_number)
-                parent.add(user)
+                #parent = Parent.objects.create(parent_id=id_number)
+                #parent.add(user)
                 #parent.save()
                 return HttpResponse("New user added")
             else:
