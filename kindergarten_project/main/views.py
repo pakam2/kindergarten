@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from main.forms import LoginForm, SignUpForm
+from accounts.models import Parent
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -43,8 +44,16 @@ class SignUpView(View):
             password1 = form.cleaned_data['password1']
             password2 = form.cleaned_data['password2']
             if password1 == password2:
+                #Create a new user
+                print(login_name)
                 user = User.objects.create_user(first_name = first_name, last_name=last_name, username=login_name, password=password1, email=email_field)
+                id_number = user.id
                 user.save()
+                #Relate the new user with the Parent model
+                print(id_number)
+                #parent = Parent.objects.create(parent_id=id_number)
+                #parent.add(user)
+                #parent.save()
                 return HttpResponse("New user added")
             else:
                 return HttpResponse("Passwords aren't identical")
@@ -54,3 +63,9 @@ class MainView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'main.html')
+
+
+class LogoutView(View):
+
+    def get(self, request):
+        pass
