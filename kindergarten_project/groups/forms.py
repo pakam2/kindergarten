@@ -4,7 +4,6 @@ from .models import Child
 
 
 class ChildForm(forms.ModelForm):
-
     class Meta:
         model = Child
         fields = ['name', 'group']
