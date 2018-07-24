@@ -3,9 +3,8 @@
 {% block body %}
     <div>
         siemaneczko! {{ user.username }} z tej strony!
-    {{ children }}
     {% for child in children %}
-
+        <a href="{% url 'child-group:child-detail' child.id %}">{{ child.name }} {{ child.childs_parent }}</a>
     {% endfor %}
     </div>
 {% endblock %}

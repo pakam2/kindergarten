@@ -1,5 +1,10 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse_lazy
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+User = settings.AUTH_USER_MODEL
 
 GROUP = (('Y', 'Younger'),
          ('O','Older'))
@@ -23,3 +28,11 @@ class Child(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse_lazy("child-group:child-detail", kwargs={"pk": self.pk})
+
+
+
+
+

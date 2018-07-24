@@ -21,6 +21,7 @@ from main.views import LoginView, SignUpView, MainView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^profile/', include('accounts.urls', namespace='profile')),
+    url(r'^child-group/', include('groups.urls', namespace='child-group')),
     url(r'^signup/', SignUpView.as_view(), name='signup'),
     url(r'^main/', MainView.as_view(), name='main'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
