@@ -15,7 +15,8 @@ class Parent(models.Model):
     child = models.ManyToManyField(Child, related_name="childs_parent")
 
     def __str__(self):
-        return self.name_of_parent
+        parent_name = self.name_of_parent
+        return f"{parent_name}"
 
 
 #Everytime a save event occurs a model is saved
