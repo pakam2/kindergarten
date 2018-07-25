@@ -2,15 +2,54 @@
 
 {% block title %} Login site {% endblock %}
 {% block body %}
-<form action="" method="post">
-{% csrf_token %}
-{{form.as_p}}
+<style media="screen">
 
-<input type="submit" name="Login" value="Login">
-</form>
-<br>
-<br>
-<a href='signup/'>Sign up</a>
 
+
+.login_wrapper{
+  position:fixed;
+  top:50%;
+  left:50%;
+  padding-top: 0%;
+  padding: 10%;
+  background-color: lightblue;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+
+}
+.login_wrapper form, input, a{
+  display: inline;
+  float:none;
+}
+.login_wrapper li{
+  list-style-type: none;
+
+}
+.login_input{
+  font-size:15px;
+}
+input[type=submit]{
+  font-size:15px;
+}
+#signup{
+  font-size:15px;
+  text-decoration:none;
+}
+#signup:hover{
+  color:green;
+
+}
+</style>
+<div class="login_wrapper">
+  <form action="" method="post">
+  {% csrf_token %}
+  {{form.as_ul}}
+  <br>
+  <input type="submit" name="Login" value="Login">
+  </form>
+  <br>
+  <br>
+<a href='signup/' id="signup">Sign up</a>
+</div>
 
 {% endblock %}

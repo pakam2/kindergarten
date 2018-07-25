@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
 
-    login_field = forms.CharField(max_length=400)
-    password = forms.CharField(widget=forms.PasswordInput())
+    login_field = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder':'User login', 'class': 'login_input'}), max_length=400)
+    password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'User password', 'class': 'login_input'}))
 
 
 class SignUpForm(UserCreationForm):

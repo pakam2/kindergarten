@@ -14,7 +14,10 @@ class LoginView(View):
 
     def get(self, request):
         login_form = LoginForm()
-        return render(request, 'login.html', {'form': login_form} )
+        if request.user.is_authenticated:
+            return redirect('/main')
+        else:
+            return render(request, 'login.html', {'form': login_form} )
 
     def post(self, request):
         username = request.POST['login_field']
