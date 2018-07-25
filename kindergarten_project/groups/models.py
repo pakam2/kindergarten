@@ -9,6 +9,34 @@ User = settings.AUTH_USER_MODEL
 GROUP = (('Y', 'Younger'),
          ('O','Older'))
 
+ACTIVITIES = (
+    ('1', 'Activity_1'),
+    ('2', 'Activity_2'),
+    ('3', 'Activity_3'),
+    ('4', 'Activity_4'),
+)
+
+LESSON_UNITS = (
+    ('1', 'Unit_1'),
+    ('2', 'Unit_2'),
+    ('3', 'Unit_3'),
+    ('4', 'Unit_4'),
+    ('5', 'Unit_5'),
+    ('6', 'Unit_6'),
+    ('7', 'Unit_7'),
+    ('8', 'Unit_8'),
+)
+
+DAYS = (
+    ('1', 'Monday'),
+    ('2', 'Tuesday'),
+    ('3', 'Wednesday'),
+    ('4', 'Thursday'),
+    ('5', 'Friday'),
+    ('6', 'Saturday'),
+    ('7', 'Sunday'),
+)
+
 
 class Group(models.Model):
     group_name = models.CharField(max_length=255)
@@ -33,6 +61,13 @@ class Child(models.Model):
         return reverse_lazy("child-group:child-detail", kwargs={"pk": self.pk})
 
 
+class GroupSchedule(models.Model):
+    group = models.ForeignKey(Group)
+    day = models.IntegerField(choices=DAYS)
+    activity = models.IntegerField(choices=ACTIVITIES)
+    lesson_unit = models.IntegerField(choices=LESSON_UNITS)
 
+    def __str__(self):
+        return 'day: {}, activity: {}'.format(self.day, self.activity)
 
 

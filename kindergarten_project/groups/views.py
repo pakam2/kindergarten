@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.models import Parent, Guardian
@@ -19,17 +19,6 @@ class ChildDetailView(LoginRequiredMixin, DetailView):
         return get_object_or_404(
                     Child,
                     pk=self.kwargs.get("pk")
-                    )
-
-
-class GroupDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'groups/group_detail_view.html'
-    queryset = Group.objects.all()
-
-    def get_object(self):
-        return get_object_or_404(
-                    Group,
-                    group_name__iexact=self.kwargs.get("group_name")
                     )
 
 
@@ -56,7 +45,23 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
 
 class ChildDeleteView(LoginRequiredMixin, DeleteView):
     model = Child
-    template_name = 'groups/delete_confirm.html'
+    template_name = 'groups/confirm_delete.html'
     success_url = reverse_lazy("main")
 
 
+class GroupDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'groups/group_detail_view.html'
+    queryset = Group.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+                    Group,
+                    group_name__iexact=self.kwargs.get("group_name")
+                    )
+
+
+class GroupListView(LoginRequiredMixin, ListView):
+    template_name = 'groups/group_list_view.html'
+
+    def get_queryset(self):
+        return Group.objects.all()
