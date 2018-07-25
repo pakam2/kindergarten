@@ -20,7 +20,7 @@ class ParentDetailView(DetailView):
         return get_object_or_404(
             User,
             username__iexact=username,
-            is_active=True
+            # is_active=True
         )
 
     def get_context_data(self, *args, **kwargs):

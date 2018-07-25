@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+
+    {{ object_list }}
+
+    {% for obj in object_list %}
+        <div>{{ obj }}</div>
+    {% endfor %}
+
+{% endblock %}
