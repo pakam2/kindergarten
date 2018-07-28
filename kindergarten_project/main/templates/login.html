@@ -4,15 +4,32 @@
 {% block body %}
 <style media="screen">
 
+* {
+  box-sizing:border-box;
 
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    background-image: url('/static/bg.jpg');
+}
 
+.login-bg-img {
+  background-image: url("/static/login_bg.jpg");
+  background-position: center;
+  background-size: 70% 100%;
+  background-repeat: no-repeat;
+  height: 100%;
+  position: static;
+}
 .login_wrapper{
-  position:fixed;
+  position:absolute;
   top:50%;
   left:50%;
   padding-top: 0%;
   padding: 10%;
-  background-color: lightblue;
+  opacity: 0.9;
+  background-color: lightgreen;
   transform: translate(-50%, -50%);
   border: 1px solid black;
 
@@ -27,9 +44,11 @@
 }
 .login_input{
   font-size:15px;
+  width:167px;
 }
 input[type=submit]{
   font-size:15px;
+  width:167px;
 }
 #signup{
   font-size:15px;
@@ -40,6 +59,8 @@ input[type=submit]{
 
 }
 </style>
+<div class="login-bg-img">
+
 <div class="login_wrapper">
   <form action="" method="post">
   {% csrf_token %}
@@ -51,5 +72,5 @@ input[type=submit]{
   <br>
 <a href='signup/' id="signup">Sign up</a>
 </div>
-
+</div>
 {% endblock %}
