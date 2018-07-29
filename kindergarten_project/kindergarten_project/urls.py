@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+
 from main.views import LoginView, SignUpView, MainView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^profile/', include('accounts.urls', namespace='profile')),
     url(r'^child-group/', include('groups.urls', namespace='child-group')),
+    url(r'^api/profile/', include('accounts.api.urls', namespace='profiles-api')),
+    url(r'^api/groups/', include('groups.api.urls', namespace='groups-api')),
     url(r'^signup/', SignUpView.as_view(), name='signup'),
     url(r'^main/', MainView.as_view(), name='main'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
