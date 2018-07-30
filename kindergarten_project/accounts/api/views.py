@@ -11,7 +11,9 @@ from .serializers import ParentDisplaySerializer
 User = get_user_model()
 
 
-class ParentDisplayAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
+class ParentDisplayAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Parent.objects.all()
     serializer_class = ParentDisplaySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
