@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 from rest_framework import serializers
 
-from groups.api.serializers import ChildDisplaySerializer, GroupDisplaySerializer
+from groups.api.serializers import ChildModelSerializer, GroupModelSerializer
 from ..models import Parent, Child
 
 User = get_user_model()
@@ -11,9 +11,8 @@ User = get_user_model()
 
 class ParentDisplaySerializer(serializers.ModelSerializer):
     name_of_parent = serializers.SerializerMethodField()
-    child = ChildDisplaySerializer(many=True, read_only=True)
+    child = ChildModelSerializer(many=True)
     url = serializers.SerializerMethodField()
-    print(child)
 
     class Meta:
         model = Parent
