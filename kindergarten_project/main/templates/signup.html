@@ -2,11 +2,58 @@
 
 {% block title  %}Registration site {% endblock %}
 {%block body %}
-<h1>Register a new user!</h1>
+<style>
 
-<form action='/signup/' method="POST">
-		{% csrf_token %}
-		{{form.as_p}}
-		<input type="submit" name="Dadaj"/>
-</form>
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    background-image: url('/static/bg.jpg');
+}
+.signup_form{
+
+	position:absolute;
+	padding:5%;
+	padding-top:1%;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	min-width: 55px;
+	background-color: lightgreen;
+	border: 1px solid black;
+}
+
+.signup_form form, input{
+	display: inline;
+	float: none;
+}
+
+input{
+	font-size: 15px;
+	width:167px;
+}
+
+#register_text{
+	font-size:20px;
+	min-width: 55px;
+	left:28%;
+}
+
+</style>
+
+
+<div class="signup_form">
+	<h1 id='register_text'> Register a new user!</h1>
+	<form action='/signup/' method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<input type="submit" name="Dadaj"/>
+	</form>
+</div>
+
+
 {% endblock %}
