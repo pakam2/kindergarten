@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 from rest_framework import serializers
 
-from groups.api.serializers import ChildModelSerializer, GroupModelSerializer
+# from groups.api.serializers import ChildModelSerializer, GroupModelSerializer
 from ..models import Parent, Child
 
 User = get_user_model()
@@ -11,7 +11,7 @@ User = get_user_model()
 
 class ParentDisplaySerializer(serializers.ModelSerializer):
     name_of_parent = serializers.SerializerMethodField()
-    child = ChildModelSerializer(many=True)
+    # child = ChildModelSerializer(many=True)
     url = serializers.SerializerMethodField()
 
     class Meta:
@@ -19,7 +19,7 @@ class ParentDisplaySerializer(serializers.ModelSerializer):
         fields = [
             'name_of_parent',
             # 'first_name',
-            'child',
+            # 'child',
             'url',
             # 'email',
         ]
@@ -29,20 +29,21 @@ class ParentDisplaySerializer(serializers.ModelSerializer):
         username = request.user.username
         return username
 
-    # def get_child(self, obj):
-    #     request = self.context.get("request")
-    #     user = request.user
-    #
-    #     child_name_list = []
-    #     try:
-    #         if user.is_authenticated():
-    #             parent = user.parent
-    #             child_obj= Child.objects.filter(childs_parent=parent)
-    #             child_name_list = [child_name.name for child_name in child_obj]
-    #     except:
-    #         pass
-    #     return child_name_list
-
     def get_url(self, obj):
         return reverse_lazy("profile:detail", kwargs={"username": obj.name_of_parent})
 
+
+class UserDisplaySerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'url',
+        ]
+
+    def get_url(self, obj):
+        return reverse_lazy("profile:detail", kwargs={"username": obj.username})

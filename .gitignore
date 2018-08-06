@@ -109,3 +109,8 @@ dont_sent_to_git.py
 
 # migrations
 **/migrations
+
+# images
+*.png
+*.gif
+*.jpeg

@@ -52,7 +52,7 @@ class Child(models.Model):
     name = models.CharField(max_length=255)
     picture = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, null=True)
     group = models.ForeignKey(Group, null=True, blank=True)
-    # parent = models.ManyToMany(Parent, related_name='parent_of_child') // FK u parenta?
+    parent = models.ForeignKey(User, related_name='parent_of_child')
 
     def __str__(self):
         return self.name

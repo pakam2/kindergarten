@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
 from ..models import Parent
-from .serializers import ParentDisplaySerializer
+from .serializers import ParentDisplaySerializer, UserDisplaySerializer
 
 User = get_user_model()
 
@@ -14,6 +14,13 @@ User = get_user_model()
 class ParentDisplayAPIView(generics.RetrieveUpdateAPIView):
     queryset = Parent.objects.all()
     serializer_class = ParentDisplaySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+
+class UserDisplayAPIView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDisplaySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 

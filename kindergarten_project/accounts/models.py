@@ -12,7 +12,7 @@ User = settings.AUTH_USER_MODEL
 
 class Parent(models.Model):
     name_of_parent = models.OneToOneField(User)
-    child = models.ManyToManyField(Child, related_name="childs_parent")
+    # child = models.ManyToManyField(Child, related_name="childs_parent")
 
     def __str__(self):
         parent_name = self.name_of_parent

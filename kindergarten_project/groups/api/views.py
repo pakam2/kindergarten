@@ -22,10 +22,8 @@ class ChildCreateAPIView(generics.CreateAPIView):
     serializer_class = ChildModelSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    # def perform_create(self, serializer):
-    #     user = self.request.user
-    #     parent = Parent.objects.get(name_of_parent=user)
-    #     serializer.save(childs_parent=parent)
+    def perform_create(self, serializer):
+        serializer.save(parent=self.request.user)
 
     # def perform_create(self, serializer):
     #     serializer.save(user=self.request.user)
