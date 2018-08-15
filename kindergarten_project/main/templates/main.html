@@ -2,11 +2,60 @@
 
 {% block title %} Main site {% endblock %}
 {% block body %}
+<style>
+body{
+  padding-top: 0px;
+  margin-top: 50px;
+  margin-left:0px;
+  border-top: 0px;
 
 
-<h1>This is the main site!</h1>
-<p>Hi {{user}}!</p>
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #FFF8DC;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
 
-<a href="/logout/">Logout</a>
+.main{
+ padding-left: 1%;
+}
+
+</style>
+<ul class="menuList">
+  <li><a href="#">Main</a></li>
+  <li><a href="#">Show child</a></li>
+  <li><a href="#">Show payments</a></li>
+  <li><a href="/logout/">Logout</a></li>
+</ul>
+
+<div class="main">
+
+
+
+    <h1>This is the main site!</h1>
+    <p>Hi {{user}}!</p>
+
+
+</div>
+
+
 {% endblock %}
