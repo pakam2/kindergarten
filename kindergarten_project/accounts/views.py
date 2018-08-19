@@ -23,11 +23,11 @@ class ParentDetailView(DetailView):
             # is_active=True
         )
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ParentDetailView, self).get_context_data(*args, **kwargs)
-        parent = Parent.objects.get(name_of_parent=self.get_object())
-        context['children'] = Child.objects.filter(childs_parent=parent)
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(ParentDetailView, self).get_context_data(*args, **kwargs)
+    #     parent = Parent.objects.get(name_of_parent=self.get_object())
+    #     context['children'] = Child.objects.filter(childs_parent=parent)
+    #     return context
 
 
 
