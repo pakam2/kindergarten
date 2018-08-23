@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import DetailView
 
+from groups.forms import ChildForm
 from accounts.models import Parent, Guardian
 from groups.models import Child, Group
 
@@ -23,11 +25,11 @@ class ParentDetailView(DetailView):
             # is_active=True
         )
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(ParentDetailView, self).get_context_data(*args, **kwargs)
-    #     parent = Parent.objects.get(name_of_parent=self.get_object())
-    #     context['children'] = Child.objects.filter(childs_parent=parent)
-    #     return context
+    def get_context_data(self, *args, **kwargs):
+        context = super(ParentDetailView, self).get_context_data(*args, **kwargs)
+        context['create_form'] = ChildForm()
+        context['create_url'] = reverse_lazy('child-group:child-create')
+        return context
 
 
 

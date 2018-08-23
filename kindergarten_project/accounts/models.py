@@ -11,7 +11,7 @@ User = settings.AUTH_USER_MODEL
 #Extending User model with two fields
 
 class Parent(models.Model):
-    name_of_parent = models.OneToOneField(User)
+    name_of_parent = models.OneToOneField(User, related_name='parent_name')
     # child = models.ManyToManyField(Child, related_name="childs_parent")
 
     def __str__(self):
@@ -28,7 +28,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.parent.save()
+    instance.parent_name.save()
 
 
 class Guardian(models.Model):

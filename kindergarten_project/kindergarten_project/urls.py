@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 from main.views import LoginView, SignUpView, MainView
+from .api import router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/v1/', include(router.urls)),
     url(r'^profile/', include('accounts.urls', namespace='profile')),
     url(r'^child-group/', include('groups.urls', namespace='child-group')),
     url(r'^api/profile/', include('accounts.api.urls', namespace='profiles-api')),

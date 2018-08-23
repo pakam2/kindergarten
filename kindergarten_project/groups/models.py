@@ -39,8 +39,8 @@ DAYS = (
 
 
 class Group(models.Model):
-    group_name = models.CharField(max_length=255)
-    type_of_group = models.CharField(max_length=1, choices=GROUP)
+    group_name = models.CharField(max_length=255, null=True)
+    type_of_group = models.CharField(max_length=1, choices=GROUP, null=True)
 #	child = models.ForeignKey(Child) FK should be in child model so child will be assigned to the group
     #teachers = models.ManyToManyField(Teacher, related_name='teacher_of_group') // trzeba zaimportować z accounts
 
@@ -49,10 +49,10 @@ class Group(models.Model):
 
 
 class Child(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
     picture = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, null=True)
     group = models.ForeignKey(Group, null=True, blank=True)
-    parent = models.ForeignKey(User, related_name='parent_of_child')
+    parent = models.ForeignKey(User, related_name='parent_of_child', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -62,10 +62,10 @@ class Child(models.Model):
 
 
 class GroupSchedule(models.Model):
-    group = models.ForeignKey(Group)
-    day = models.IntegerField(choices=DAYS)
-    activity = models.IntegerField(choices=ACTIVITIES)
-    lesson_unit = models.IntegerField(choices=LESSON_UNITS)
+    group = models.ForeignKey(Group, related_name='group_activities', null=True)
+    day = models.IntegerField(choices=DAYS, null=True)
+    activity = models.IntegerField(choices=ACTIVITIES, null=True)
+    lesson_unit = models.IntegerField(choices=LESSON_UNITS, null=True)
 
     def __str__(self):
         return 'day: {}, activity: {}'.format(self.day, self.activity)

@@ -27,7 +27,8 @@ SECRET_KEY = password
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.11', '127.0.0.1']
+# ALLOWED_HOSTS = ['192.168.1.11', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,12 +38,15 @@ INSTALLED_APPS = [
     'chat',
     'groups',
     'main',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
     'rest_framework',
     'django_extensions',
 ]
@@ -131,3 +135,5 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+CRISPY_TEMPLATE_PACK  = 'bootstrap3'
