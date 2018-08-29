@@ -1,10 +1,75 @@
 {% extends 'base/base.html' %}
 
+{% block script %}
+
+    <script>
+
+        $(document).ready(function() {
+            function clear_field() {
+                $('#id_name').val('')
+            }
+
+            function ajax_list() {
+                var container = $(".container");
+                $.ajax({
+                    url: "/api/v1/children/",
+                    method: "GET",
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log("error");
+                        console.log(data);
+                    }
+                })
+            }
+
+            function form_post_ajax() {
+                $(".my-list").submit(function(event) {
+                    event.preventDefault();
+                    var this_ = $(this);
+                    console.log(this_ + "  THIS");
+                    var formData = this_.serialize();
+                    console.log(formData);
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/v1/children/",
+                        data: formData,
+                        success: function (data) {
+                            console.log('no i co?');
+                            console.log(data);
+                            clear_field();
+                            ajax_list();
+                        },
+                        error: function (data) {
+                            console.log('error');
+                            console.log(data.statusText + "  ERROR STATUS TEXT");
+                            console.log(data + "  ERROR DATA")
+
+                        }
+                    })
+                })
+            }
+            ajax_list();
+            form_post_ajax();
+
+        })
+
+    </script>
+
+{% endblock script %}
+
 {% block body %}
-    <div>
-        siemaneczko! {{ user.username }} z tej strony!
-    {% for child in children %}
-        <a href="{% url 'child-group:child-detail' child.id %}">{{ child.name }}</a>
-    {% endfor %}
-    </div>
-{% endblock %}
+
+    <form class='my-list' action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+    <br/><br/><hr/>
+    <div class="container"></div>
+
+
+{% endblock body %}
+
+
