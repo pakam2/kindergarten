@@ -3,72 +3,73 @@
 {% block script %}
 
     <script>
-    $(document).ready(function() {
-        $(".my-list").on('submit', function (event) {
-            event.preventDefault();
-            var this_ = $(this);
-            var formData = this_.serialize();
-            {% comment %}var name = $("#id_name").val();
-            var group = $("#id_group").val();
-            var create_url = "{{ create_url }}";
-            console.log(name);
-            console.log(group);
-            console.log(create_url);{% endcomment %}
-            console.log(formData);
 
-            $.ajax({
-                {% comment %}type: "POST",
-                url: "/api/groups/child-create/",
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-                data: JSON.stringify({
-                    "name": name,
-                    "group": group
-                }),
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                success: function () {
-                    alert('created!!!')
-                },
-                error: function (data) {
-                    alert("error");
-                    console.log(data.statusText);
-                    console.log(data.status){% endcomment %}
-                type: "POST",
-                url: "/api/groups/child-create/",
-                data: formData,
-                success: function (data) {
-                    alert(data + 'created!!!')
-                },
-                error: function (data) {
-                    console.log("error");
-                    console.log(data.statusText);
-                    console.log(data.status)
-                }
-            })
+        $(document).ready(function() {
+            function clear_field() {
+                $('#id_name').val('')
+            }
+
+            function ajax_list() {
+                var container = $(".container");
+                $.ajax({
+                    url: "/api/v1/children/",
+                    method: "GET",
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log("error");
+                        console.log(data);
+                    }
+                })
+            }
+
+            function form_post_ajax() {
+                $(".my-list").submit(function(event) {
+                    event.preventDefault();
+                    var this_ = $(this);
+                    console.log(this_ + "  THIS");
+                    var formData = this_.serialize();
+                    console.log(formData);
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/v1/children/",
+                        data: formData,
+                        success: function (data) {
+                            console.log('no i co?');
+                            console.log(data);
+                            clear_field();
+                            ajax_list();
+                        },
+                        error: function (data) {
+                            console.log('error');
+                            console.log(data.statusText + "  ERROR STATUS TEXT");
+                            console.log(data + "  ERROR DATA")
+
+                        }
+                    })
+                })
+            }
+            ajax_list();
+            form_post_ajax();
+
         })
-    })
+
     </script>
+
 {% endblock script %}
 
 {% block body %}
-    <div>
-        siemaneczko! {{ user.username }} z tej strony!
-        <div class="test-ajax"></div>
-    </div>
-    <br/>
-    <hr/>
-    <div>Add your child:</div><br/>
-        <div class=''>
-            {% include "groups/child_form.html" with form=create_form action_url=create_url btn_title='ok' form_id='create-child' %}
-        </div>
-{% comment %}
-    <form class="create-child" method="post" action={{ create_url }}>
-    {% csrf_token %}
-    {{ create_form.as_p }}
-    <input type="submit" value="create">
+
+    <form class='my-list' action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
     </form>
-{% endcomment %}
+    <br/><br/><hr/>
+    <div class="container"></div>
+
 
 {% endblock body %}
+
+

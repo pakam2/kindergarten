@@ -16,20 +16,22 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
+from .api_router import router
 from main.views import LoginView, SignUpView, MainView
-from .api import router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
     url(r'^profile/', include('accounts.urls', namespace='profile')),
     url(r'^child-group/', include('groups.urls', namespace='child-group')),
-    url(r'^api/profile/', include('accounts.api.urls', namespace='profiles-api')),
-    url(r'^api/groups/', include('groups.api.urls', namespace='groups-api')),
+    # url(r'^api/profile/', include('accounts.api.urls', namespace='profiles-api')),
+    # url(r'^api/groups/', include('groups.api.urls', namespace='groups-api')),
     url(r'^signup/', SignUpView.as_view(), name='signup'),
     url(r'^main/', MainView.as_view(), name='main'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^$', LoginView.as_view(), name='login-view'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

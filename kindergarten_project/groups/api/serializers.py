@@ -38,8 +38,8 @@ class ChildModelSerializer(serializers.ModelSerializer):
     parent = UserDisplaySerializer(read_only=True)
     group = GroupModelSerializer(read_only=True)
     group_id = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), source='group', write_only=True)
-    # picture = serializers.FileField(max_length=None, allow_empty_file=True, use_url=True)
-    # url = serializers.SerializerMethodField()
+    picture = serializers.FileField(max_length=None, allow_empty_file=True, use_url=True)
+    url = serializers.SerializerMethodField()
 
     class Meta:
         model = Child
@@ -48,10 +48,10 @@ class ChildModelSerializer(serializers.ModelSerializer):
             'parent',
             'group',
             'group_id',
-            # 'picture',
-            # 'url',
+            'picture',
+            'url',
         ]
 
-    # def get_url(self, obj):
-    #     return reverse_lazy("child-group:child-detail", kwargs={"pk": obj.pk})
+    def get_url(self, obj):
+        return reverse_lazy("child-group:child-detail", kwargs={"pk": obj.pk})
 

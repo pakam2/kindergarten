@@ -1,16 +1,11 @@
-{% load crispy_forms_tags %}
+{% extends 'base/base.html' %}
 
-{% comment %}
-<form {% if form_id %} id='{{ form_id }}' {% endif %} class='form' method='POST'>
-                              action="{% if action_url %}{{ action_url }}{% endif %
-   {% csrf_token %}
-    {{ form|crispy }}
-    <input class='btn btn-primary' type="submit" value="{{ btn_title }}" />
-</form>
-{% endcomment %}
+{% block body %}
+    <div>Add your child:</div><br/>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="ok">
+    </form>
 
-<form class='my-list' action="" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-        <input type="submit" value="Save" />
-</form>
+{% endblock %}

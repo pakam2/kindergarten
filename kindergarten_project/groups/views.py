@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .mixins import FormUserNeededMixin, UserOwnerMixin
 from accounts.models import Parent, Guardian
 from groups.models import Group, Child
 from .forms import ChildForm
@@ -23,17 +22,17 @@ class ChildDetailView(LoginRequiredMixin, DetailView):
                     )
 
 
-class ChildCreateView(LoginRequiredMixin, FormUserNeededMixin, CreateView):
+class ChildCreateView(LoginRequiredMixin, CreateView):
     form_class = ChildForm
-    template_name = 'groups/child_create_view.html'
+    template_name = 'groups/child_form.html'
     # success_url = 'child-group:child-detail'
 
-    # # assigning child to logged in user/parent
-    # def form_valid(self, form):
-    #     obj = form.save(commit=True)
-    #     parent = Parent.objects.get(name_of_parent=self.request.user)
-    #     parent.child.add(obj)
-    #     return super(ChildCreateView, self).form_valid(form)
+    # assigning child to logged in user/parent
+    def form_valid(self, form):
+        obj = form.save(commit=True)
+        parent = Parent.objects.get(name_of_parent=self.request.user)
+        parent.child.add(obj)
+        return super(ChildCreateView, self).form_valid(form)
 
 
 class ChildUpdateView(LoginRequiredMixin, UpdateView):

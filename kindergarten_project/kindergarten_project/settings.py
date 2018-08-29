@@ -27,8 +27,7 @@ SECRET_KEY = password
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['192.168.1.11', '127.0.0.1']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.11', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'accounts',
     'chat',
     'groups',
+    'kindergarten_api',
     'main',
 
     'django.contrib.admin',
@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'crispy_forms',
     'rest_framework',
     'django_extensions',
 ]
@@ -136,4 +135,6 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CRISPY_TEMPLATE_PACK  = 'bootstrap3'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

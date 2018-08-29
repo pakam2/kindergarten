@@ -1,5 +1,5 @@
 from django.db.models import Q
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,7 +15,7 @@ User = get_user_model()
 class ChildDisplayAPIView(generics.ListAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildModelSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class ChildCreateAPIView(generics.CreateAPIView):
@@ -29,14 +29,6 @@ class ChildCreateAPIView(generics.CreateAPIView):
     #     serializer.save(user=self.request.user)
 
 
-class ChildModelViewsetView(viewsets.ModelViewSet):
-    serializer_class = ChildModelSerializer
-    queryset = Child.objects.all()
-
-    def perform_create(self, serializer):
-        serializer.save(parent=self.request.user)
-
-
 class GroupDisplayAPIView(generics.ListAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupModelSerializer
@@ -45,7 +37,7 @@ class GroupDisplayAPIView(generics.ListAPIView):
 
 class GroupCreateAPIView(generics.CreateAPIView):
     serializer_class = GroupModelSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     # def perform_create(self, serializer):
     #     serializer.save(user=self.request.user)
