@@ -3,5 +3,8 @@
 {% block body %}
     <div> name: {{ child.name }} </div>
     <div> group: {{ child.group }} </div>
-    <img  class="img-responsive watch-right" alt="not found" src="{{ child.picture }}"/>
+    <img  class="img-responsive watch-right" alt="not found" src="{{ object.picture.url }}"/>
+<br/>
+
+
 {% endblock body %}

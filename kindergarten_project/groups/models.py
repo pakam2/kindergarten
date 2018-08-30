@@ -3,8 +3,11 @@ from django.db import models
 from django.urls import reverse_lazy
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.core.files.storage import FileSystemStorage
 
 User = settings.AUTH_USER_MODEL
+
+fs = FileSystemStorage(location='media')
 
 GROUP = (('Y', 'Younger'),
          ('O','Older'))
@@ -50,7 +53,7 @@ class Group(models.Model):
 
 class Child(models.Model):
     name = models.CharField(max_length=255)
-    picture = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, null=True)
+    picture = models.ImageField(upload_to='media', blank=True, null=True)
     group = models.ForeignKey(Group, null=True, blank=True)
     parent = models.ForeignKey(User, related_name='parent_of_child')
 
