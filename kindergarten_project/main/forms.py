@@ -10,11 +10,18 @@ class LoginForm(forms.Form):
 
 class SignUpForm(UserCreationForm):
 
-    first_name = forms.CharField(max_length=200, required=False, help_text="Optional")
-    login = forms.CharField(max_length=100, required=True)
-    last_name = forms.CharField(max_length=200, required=False, help_text="Optional")
-    email = forms.EmailField(max_length=400)
-    password1 = forms.CharField(widget=forms.PasswordInput(), help_text="")
+    first_name = forms.CharField(label="", max_length=200, required=False,widget=forms.TextInput(attrs={'placeholder': 'First name'}), help_text="")
+    login = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'placeholder': "Your login"}), required=True)
+    last_name = forms.CharField(label="", max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Last name'}), required=False, help_text="")
+    email = forms.EmailField(label="", max_length=400, widget=forms.EmailInput(attrs={'placeholder':'Your email'}))
+    password1 = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), help_text="")
+    def __init__(self, *args, **kwargs):
+        # Override default init from `UserCreationForm` to use email as
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm password'})
+        self.fields['password2'].help_text=''
+        self.fields['password2'].label=''
+
     class Meta:
         model = User
         fields = ['login', 'first_name', 'last_name', 'email', 'password1', 'password2']
