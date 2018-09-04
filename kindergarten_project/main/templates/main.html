@@ -41,8 +41,12 @@ li a {
 </style>
 <ul class="menuList">
   <li><a href="/main/">Main</a></li>
-  <li><a href="#">Show child</a></li>
+    {% for child in children %}
+        <li><a href="{{ child.get_absolute_url }}">Show {{ child.name }}</a></li>
+    {% endfor %}
+
   <li><a href="#">Show payments</a></li>
+  <li><a href="{{ parent.get_absolute_url }}"> Profile </a> </li>
   <li><a href="/logout/">Logout</a></li>
 </ul>
 
@@ -51,7 +55,9 @@ li a {
 
 
     <h1>This is the main site!</h1>
-    <p>Hi {{user}}!</p>
+    <p>Hi {{ user }}!</p>
+
+
 
 
 </div>

@@ -3,7 +3,11 @@
 {% block body %}
     <div> name: {{ child.name }} </div>
     <div> group: {{ child.group }} </div>
+{#    bez obrazka wyrzuca błąd #}
+    {% comment %}{% if object.picture.url %}
     <img  class="img-responsive watch-right" alt="not found" src="{{ object.picture.url }}"/>
+    {% endif %}{% endcomment %}
+
 <br/>
 
 

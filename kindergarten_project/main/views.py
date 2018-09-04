@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 
+from groups.models import Child
 
 # Create your views here.
 
@@ -65,7 +66,13 @@ class SignUpView(View):
 class MainView(LoginRequiredMixin, View):
 
     def get(self, request):
-        return render(request, 'main.html')
+        children = Child.objects.filter(parent=request.user)
+        parent = Parent.objects.get(name_of_parent=request.user)
+        ctx = {
+            'children': children,
+            'parent': parent
+        }
+        return render(request, 'main.html', ctx)
 
 
 class LogoutView(View):

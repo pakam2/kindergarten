@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.urls import reverse_lazy
 
 from groups.models import Child, Group
 
@@ -17,6 +18,9 @@ class Parent(models.Model):
     def __str__(self):
         parent_name = self.name_of_parent
         return f"{parent_name}"
+
+    def get_absolute_url(self):
+        return reverse_lazy("profile:detail", kwargs={"username": self.name_of_parent})
 
 
 #Everytime a save event occurs a model is saved
